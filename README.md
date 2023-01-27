@@ -6,7 +6,7 @@ Written for Windows users / n00bs.
 Requirements:
 - Python
 - Pytube (pip install pytube)
-- FFmpeg (put in samme folder as py script)
+- FFmpeg (put in same folder as py script)
 
 How to use:
 - Adjust the YT link and the video resolution (if available). 
