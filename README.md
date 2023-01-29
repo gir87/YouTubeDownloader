@@ -1,6 +1,6 @@
 # YouTube Downloader GUI
 
-A small Python based GUI for downloading YouTube video's. 
+A small Python based GUI for downloading YouTube video's.<br />
 This is my first application written in Python. Developed and tested in Windows 11.
 
 ![Interface](/assets/interface.png)
