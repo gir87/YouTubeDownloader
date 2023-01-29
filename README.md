@@ -3,6 +3,8 @@
 A small script for downloading YouTube video's via Python.
 Written for Windows users / n00bs.
 
+![Interface](/assets/interface.png)
+
 Requirements:
 - Python
 - Pytube (pip install pytube)
