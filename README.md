@@ -1,4 +1,4 @@
-# YouTubeDownloader
+# YouTube Downloader GUI
 
 A small script for downloading YouTube video's via Python.
 Written for Windows users / n00bs.
