@@ -1,15 +1,15 @@
 # YouTube Downloader GUI
 
-A small script for downloading YouTube video's via Python.
-Written for Windows users / n00bs.
+A small Python based GUI for downloading YouTube video's. This is my first application written in Python. Developed in OS: Windows 11.
 
 ![Interface](/assets/interface.png)
 
 Requirements:
 - Python
-- Pytube (pip install pytube)
-- FFmpeg (put in same folder as py script)
+- Pytube (install this via cmd: pip install pytube)
+- FFmpeg (download at ffmpeg.org and put in same folder as py script)
 
-How to use:
-- Adjust the YT link and the video resolution (if available). 
-- The highest bitrate audio will be downloaded as mp4 and merged with the video file.
+![explanation](/assets/explanation.png)
+
+Please note:
+- Please check the video beforehand if it offers the given quality like 1080p, 720p.. Otherwise the program won't produce any output.
