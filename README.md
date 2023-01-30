@@ -1,6 +1,6 @@
 # YouTube Downloader GUI
 
-A small Python based GUI for downloading YouTube video's.<br />
+A small Python based GUI for downloading YouTube video's and mp3.<br />
 This is my first application written in Python. Developed and tested in Windows 11.<br />
 The GUI comes with a small console window that explains each step of the process.
 
@@ -8,7 +8,7 @@ The GUI comes with a small console window that explains each step of the process
 
 Requirements:
 - Python
-- Pytube (install this via cmd: pip install pytube)
+- Pytube (install via cmd: pip install pytube)
 - FFmpeg (download at ffmpeg.org and put in same folder as py script)
 
 ![explanation](/assets/explanation.png)
