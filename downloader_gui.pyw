@@ -21,19 +21,21 @@ def on_progress(stream, chunk, bytes_remaining):
 def download_video():
     youtube = YouTube(url_var.get())
     youtube.register_on_progress_callback(on_progress)
+    
     write_to_console('Downloading video...')
     video = youtube.streams.filter(res=res_var.get()).first().download()
+   
     write_to_console('Rename video...')
     os.rename(video, 'video.mp4')
+    
     write_to_console('Download audio...')
-    audio = youtube.streams.filter(subtype='mp4',
-                                   only_audio=True).order_by('bitrate'
-            ).desc().first().download()
+    audio = youtube.streams.filter(subtype='mp4', only_audio=True).order_by('bitrate').desc().first().download()
+    
     write_to_console('Rename audio...')
     os.rename(audio, 'audio.mp4')
+    
     write_to_console('Join video and audio with FFMPEG...')
-    os.system('ffmpeg -i audio.mp4 -i video.mp4 -async 1 -c copy YouTubeVideo.mp4'
-              )
+    os.system('ffmpeg -i audio.mp4 -i video.mp4 -async 1 -c copy YouTubeVideo.mp4')
 
     write_to_console('Renaming video...')
     filename = 'YouTubeVideo.mp4'
