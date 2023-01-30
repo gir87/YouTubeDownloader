@@ -37,7 +37,7 @@ url_entry.pack()
 
 res_var = tk.StringVar()
 res_var.set("1080p")
-res_dropdown = tk.OptionMenu(root, res_var, "1080p", "720p", "480p", "360p")
+res_dropdown = tk.OptionMenu(root, res_var, "4320p", "2160p", "1440p", "1080p", "720p", "480p", "360p")
 res_dropdown.pack()
 
 download_button = tk.Button(root, text="Download", command=lambda: threading.Thread(target=download_video).start())
