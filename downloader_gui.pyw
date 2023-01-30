@@ -20,33 +20,37 @@ def on_progress(stream, chunk, bytes_remaining):
 
 def download_video():
     youtube = YouTube(url_var.get())
-    youtube.register_on_progress_callback(on_progress)
-    
-    write_to_console('Downloading video...')
-    video = youtube.streams.filter(res=res_var.get()).first().download()
-   
-    write_to_console('Rename video...')
-    os.rename(video, 'video.mp4')
-    
-    write_to_console('Download audio...')
-    audio = youtube.streams.filter(subtype='mp4', only_audio=True).order_by('bitrate').desc().first().download()
-    
-    write_to_console('Rename audio...')
-    os.rename(audio, 'audio.mp4')
-    
-    write_to_console('Join video and audio with FFMPEG...')
-    os.system('ffmpeg -i audio.mp4 -i video.mp4 -async 1 -c copy YouTubeVideo.mp4')
 
-    write_to_console('Renaming video...')
-    filename = 'YouTubeVideo.mp4'
-    timestamp = time.strftime('%Y-%m-%d_%H-%M-%S')
-    new_filename = '{}_{}'.format(timestamp, filename)
-    os.rename(filename, new_filename)
 
-    write_to_console('Removal of temp files...')
-    os.remove('audio.mp4')
-    os.remove('video.mp4')
-    write_to_console('Finished!')
+    if audio_only.get() == 0:
+        youtube.register_on_progress_callback(on_progress)
+        write_to_console('Downloading video...')
+        video = youtube.streams.filter(res=res_var.get()).first().download()
+        write_to_console('Rename video...')
+        os.rename(video, 'video.mp4')
+        write_to_console('Download audio...')
+        audio = youtube.streams.filter(subtype='mp4', only_audio=True).order_by('bitrate').desc().first().download()
+        write_to_console('Rename audio...')
+        os.rename(audio, 'audio.mp4')
+        write_to_console('Join video and audio with FFMPEG...')
+        os.system('ffmpeg -i audio.mp4 -i video.mp4 -async 1 -c copy YouTubeVideo.mp4')
+        os.rename('YouTubeVideo.mp4', youtube.title+'.mp4')
+        write_to_console('Removal of temp files...')
+        os.remove('video.mp4')
+        os.remove('audio.mp4')
+        write_to_console('Finished!')
+
+    else:
+        write_to_console('Download audio...')
+        audio = youtube.streams.filter(subtype='mp4', only_audio=True).order_by('bitrate').desc().first().download()
+        write_to_console('Rename audio...')
+        os.rename(audio, 'audio.mp4')
+        write_to_console('Converting to mp3...')
+        os.system('ffmpeg -i audio.mp4 -q:a 0 -map a YouTubeAudio.mp3')
+        os.rename('YouTubeAudio.mp3', youtube.title+'.mp3')
+        write_to_console('Removal of temp files...')
+        os.remove('audio.mp4')
+        write_to_console('Finished!')
 
 
 def write_to_console(text):
@@ -77,9 +81,16 @@ res_dropdown = tk.OptionMenu(
     )
 res_dropdown.pack()
 
+
+audio_only = tk.IntVar()
+audio_checkbox = tk.Checkbutton(root, text="Audio only (convert to mp3)", variable=audio_only)
+audio_checkbox.pack()
+
+
 download_button = tk.Button(root, text='Download', command=lambda : \
                             threading.Thread(target=download_video).start())
 download_button.pack()
+
 
 console = tkst.ScrolledText(root, state='disabled', height=10, width=50)
 console.pack()
