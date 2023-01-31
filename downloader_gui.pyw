@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.scrolledtext as tkst
 from pytube import YouTube
 import os
+import re
 import threading
 import time
 
@@ -34,7 +35,8 @@ def download_video():
         os.rename(audio, 'audio.mp4')
         write_to_console('Join video and audio with FFMPEG...')
         os.system('ffmpeg -i audio.mp4 -i video.mp4 -async 1 -c copy YouTubeVideo.mp4')
-        os.rename('YouTubeVideo.mp4', youtube.title+'.mp4')
+        new_file_name = re.sub(r'\s', '', re.sub(r'[^\w\s]+', '_', youtube.title))
+        os.rename('YouTubeVideo.mp4', new_file_name+'.mp4')
         write_to_console('Removal of temp files...')
         os.remove('video.mp4')
         os.remove('audio.mp4')
@@ -47,7 +49,8 @@ def download_video():
         os.rename(audio, 'audio.mp4')
         write_to_console('Converting to mp3...')
         os.system('ffmpeg -i audio.mp4 -q:a 0 -map a YouTubeAudio.mp3')
-        os.rename('YouTubeAudio.mp3', youtube.title+'.mp3')
+        new_file_name = re.sub(r'\s', '', re.sub(r'[^\w\s]+', '_', youtube.title))
+        os.rename('YouTubeAudio.mp3', new_file_name+'.mp3')
         write_to_console('Removal of temp files...')
         os.remove('audio.mp4')
         write_to_console('Finished!')
@@ -92,7 +95,7 @@ download_button = tk.Button(root, text='Download', command=lambda : \
 download_button.pack()
 
 
-console = tkst.ScrolledText(root, state='disabled', height=10, width=50)
+console = tkst.ScrolledText(root, state='disabled', height=16, width=50)
 console.pack()
 
 root.geometry('600x400')
